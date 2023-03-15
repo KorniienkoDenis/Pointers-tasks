@@ -1,20 +1,53 @@
-// Pointer task 2.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
 #include <iostream>
+#include <ctime>
+
+/*
+	
+	Task 2.
+		Declare a pointer on the array of type integer and allocated memory for 12 elements.
+		Necessary write a function which swap place pair and odd elements in the array.
+
+*/
+
+void SwapElements(int* ptrArr, const int sizePtrArr);
 
 int main()
 {
-    std::cout << "Hello World!\n";
+	srand(time(nullptr));
+
+	const int sizePtrArr = 12;
+	int* ptrArr = new int[sizePtrArr];
+
+	for (int index = 0; index < sizePtrArr; index++)
+		ptrArr[index] = rand() % 10 + 1;
+
+	std::cout << "Array: ";
+	for (int index = 0; index < sizePtrArr; index++)
+		std::cout << ptrArr[index] << " ";
+
+	SwapElements(ptrArr, sizePtrArr);
+
+	std::cout << "Swapped array: ";
+	for (int index = 0; index < sizePtrArr; index++)
+		std::cout << ptrArr[index] << " ";
+
+	delete[] ptrArr;
+	ptrArr = 0;
+
+	return 0;
 }
 
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
+void SwapElements(int* ptrArr, const int sizePtrArr)
+{
+	for (int index = 0; index < sizePtrArr; index++)
+	{
+		if(index % 2 == 0)
+		{
+			int temp = ptrArr[index];
+			ptrArr[index] = ptrArr[index + 1];
+			ptrArr[index + 1] = temp;
+		}
+	}
 
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
+	std::cout << std::endl;
+}
