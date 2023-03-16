@@ -1,20 +1,74 @@
-// Pointer task 3.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
 #include <iostream>
+#include <ctime>
+
+/*
+
+	Task 3.
+		Declare and fill a two-dimensional dynamic array random numbers from 10 to 50.
+		Show it in the console. For fill and show in the console wrote separate functions.
+		Count of rows and columns is chosen by the user.
+
+*/
+
+void FillArray(int** arr, int row, int column);
+void ShowArray(int** arr, int row, int column);
 
 int main()
 {
-    std::cout << "Hello World!\n";
+	srand(time(nullptr));
+	
+	int countOfRow = 0;
+	int countOfColumn = 0;
+
+	std::cout << "Input count of row: ";
+	std::cin >> countOfRow;
+
+	std::cout << "Input count of column: ";
+	std::cin >> countOfColumn;
+
+	int** arr = new int* [countOfRow];
+
+	for (int indexRow = 0; indexRow < countOfRow; indexRow++)
+		arr[indexRow] = new int[countOfColumn];
+
+	FillArray(arr, countOfRow, countOfColumn);
+
+	std::cout << std::endl;
+
+	ShowArray(arr, countOfRow, countOfColumn);
+
+	for (int indexRow = 0; indexRow < countOfRow; indexRow++)
+		delete[] arr[indexRow];
+
+	delete[] arr;
+
+	return 0;
 }
 
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
+void FillArray(int** arr, int row, int column)
+{
+	for (int indexRow = 0; indexRow < row; indexRow++)
+	{
+		for (int indexColumn = 0; indexColumn < column; indexColumn++)
+		{
+			arr[indexRow][indexColumn] = 10 + rand() % 41;
+		}
+	}
+}
 
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
+void ShowArray(int** arr, int row, int column)
+{
+	std::cout << "Array: \n";
+
+	for (int indexRow = 0; indexRow < row; indexRow++)
+	{
+		for (int indexColumn = 0; indexColumn < column; indexColumn++)
+		{
+			std::cout << arr[indexRow][indexColumn] << " ";
+		}
+
+		std::cout << std::endl;
+	}
+
+	std::cout << std::endl;
+}
